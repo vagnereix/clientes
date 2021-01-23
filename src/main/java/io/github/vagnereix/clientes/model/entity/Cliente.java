@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @Entity
 @Data //cria construtores com e sem param, toString, hashCodeEquals, getters e setters auto
-@Builder
+@Builder //gera um builder
 @NoArgsConstructor //manter construtor vazio
 @AllArgsConstructor //Lombok gera construtor com todos os argumentos
 public class Cliente {
