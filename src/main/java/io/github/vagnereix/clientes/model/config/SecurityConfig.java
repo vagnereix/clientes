@@ -1,5 +1,7 @@
 package io.github.vagnereix.clientes.model.config;
 
+import io.github.vagnereix.clientes.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,28 +11,39 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+//    TESTANDO O SECURITY
+//    @Override
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.
+//            inMemoryAuthentication()
+//            .withUser("vagnereix")
+//            .password("@123")
+//            .roles("USER");
+//    }
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.
-            inMemoryAuthentication()
-            .withUser("vagnereix")
-            .password("@123")
-            .roles("USER");
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+            .userDetailsService(usuarioService)
+            .passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            //resguarda aplicações web dentro do projeto
             .csrf().disable()
             .cors()
         .and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            .sessionManagement()
+            //aplicação não guardará sessões (será pelo token)
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Bean
