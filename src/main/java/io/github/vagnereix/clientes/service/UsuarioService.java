@@ -16,11 +16,12 @@ public class UsuarioService implements UserDetailsService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    //método usado para buscar Usuario no banco e passar dados para o SecurityConfig
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException ("Login não encontrado!"));
-    return User
+        return User
             .builder()
             .username(usuario.getUsername())
             .password(usuario.getPassword())

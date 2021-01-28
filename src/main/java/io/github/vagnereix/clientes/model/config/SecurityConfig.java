@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .userDetailsService(usuarioService)
+            .userDetailsService(usuarioService) //recebe os dados de loadUserByUsername em UsuarioService
             .passwordEncoder(passwordEncoder());
     }
 
