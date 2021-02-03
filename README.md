@@ -11,4 +11,4 @@ Spring Security;
 OAuth authentication para sessões;
 Tokens JWT;
 Lombok para criação de métodos, getters e setters em tempo de compilação;
-Plugin do Lombok no VSCode para utilização de suas funções em tempo de desenvolvimento;
+Plugin do Lombok no VSCode para utilização de suas funções em tempo de desenvolvimento.
